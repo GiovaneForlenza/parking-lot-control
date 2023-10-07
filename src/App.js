@@ -10,7 +10,7 @@ function App() {
     <div className="border h-screen flex items-center justify-center bg-sky-50">
       {/* Content container */}
       <div className="">
-        {displayPage === "CheckIn" || displayPage === "CheckOut" ? (
+        {displayPage === "Check in" || displayPage === "Check out" ? (
           <Home />
         ) : (
           <Dashboard />

@@ -5,6 +5,9 @@ function CheckOut() {
     <div className="h-34 w-full">
       <div className="px-20 mt-4">
         <form action="" className="p-4 shadow">
+          <div className="text-center text-sm font-mono">
+            Check out a parked car
+          </div>
           <div className="user-input-wrp">
             <br />
             <input type="text" className="inputText px-1 border-2" required />
@@ -15,7 +18,7 @@ function CheckOut() {
               type="button"
               className="h-10 px-4 bg-sky-200 rounded-md hover:bg-sky-300"
             >
-              Check Out Vehicle
+              Check out Vehicle
             </button>
           </div>
         </form>

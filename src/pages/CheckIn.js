@@ -1,26 +1,21 @@
-import React, { useContext } from "react";
-import DateTimeLabel from "../components/DateTimeLabel";
-import FormLine from "../components/FormLine";
+import React, { useCallback, useEffect } from "react";
 
-import getCarData from "../services/carService";
-
-import { CarContext } from "../context/CarContext";
+import "../css/formLine.css";
 
 function CheckIn() {
-  const getCarMakes = () => {
-    console.log(getCarData);
-  };
+  
 
-  const { car } = useContext(CarContext);
-  // console.log(car);
-  // getCarMakes();
   return (
     <div>
       {/* Content container */}
-      <div className="w-full h-34">
+      <div className="w-full ">
         {/* Form container */}
         <div className=" px-20 mt-4">
-          <form action="" className="p-4 shadow">
+          <form action="" className="p-4 shadow ">
+            <div className="text-center text-sm font-mono">
+              Check in a new car
+            </div>
+
             {/* Car Plate */}
             <div className="user-input-wrp">
               <br />
@@ -59,7 +54,7 @@ function CheckIn() {
                 type="button"
                 className=" px-4 h-10 bg-sky-200 rounded-md hover:bg-sky-300"
               >
-                Check In Vehicle
+                Check in Vehicle
               </button>
             </div>
           </form>
