@@ -27,9 +27,8 @@ const getCarMake = () => {
 };
 
 const getListOfCarModels = () => {
-  fetch(CAR_MODELS_LIST_URL)
+  return fetch(CAR_MODELS_LIST_URL)
     .then((resp) => resp.json())
-    .then((data) => (ALL_CAR_MODELS = data));
 };
 
 export default getSortedCarMakeList;

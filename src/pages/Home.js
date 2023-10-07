@@ -10,7 +10,7 @@ function Home() {
   const { displayPage } = useContext(DisplayPageContext);
 
   return (
-    <div className="bg-white w-[600px]  h-[460px] rounded-md flex flex-col  shadow-md ring-1 ring-slate-100 py-6 px-6 ">
+    <div className="bg-white w-[600px]  rounded-md flex flex-col  shadow-md ring-1 ring-slate-100 py-6 px-6 ">
       <ChangeScreenButtons />
       <DateTimeLabel />
       {displayPage === "Check in" ? (
