@@ -5,15 +5,19 @@ import { CarContext } from "../context/CarContext";
 import { HelperContext } from "../context/HelperContext";
 
 function Dashboard() {
-  const tableHeader = [
+  const tableHeaderParkedCars = [
     "Car plate",
     "Car make",
     "Car model",
     "Car color",
     "Check in time",
-    "Check out time",
-    "Amount paid",
   ];
+
+  // TODO(Gionave): Switch between the parked cars and all the records
+  // TODO(Gionave): For the checked out cars, calculate the price paid to put it on record
+  // TODO(Gionave): Somehow implement a sorting system, to change the "default" item ID sorting
+
+  const tableHeaderAllCars = ["Check out time", "Time parked", "Amount paid"];
 
   const tablesToShow = ["Parked cars", "All cars"];
   const [shownTable, setShownTable] = useState("Parked cars");
@@ -52,7 +56,7 @@ function Dashboard() {
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
               <tr>
-                {tableHeader.map((item) => {
+                {tableHeaderParkedCars.map((item) => {
                   return (
                     <th scope="col" className="px-6 py-3" key={item}>
                       {item}
@@ -74,6 +78,7 @@ function Dashboard() {
                     <td className="px-6 py-4">{car.make}</td>
                     <td className="px-6 py-4">{car.model}</td>
                     <td className="px-6 py-4">
+                      {/* <div className=""> */}
                       {carColorList.map((item) => {
                         if (item.name === car.color) {
                           return (
@@ -86,15 +91,17 @@ function Dashboard() {
                           );
                         }
                       })}
+                      {/* <div className="a text-xs ml-1">{car.color}</div> */}
+                      {/* </div> */}
                     </td>
                     <td className="px-6 py-4">
                       {getFormattedTimeFromDT(car.checkInTime)}
                     </td>
-                    <td className="px-6 py-4">
+                    {/* <td className="px-6 py-4">
                       {car.checkOutTime !== ""
                         ? getFormattedTimeFromDT(car.checkOutTime)
                         : null}
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}

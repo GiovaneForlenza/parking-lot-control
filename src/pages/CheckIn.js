@@ -46,6 +46,8 @@ function CheckIn() {
   const handleChangeCarModelSelection = (model) => {
     setCar({ ...car, model: model.target.value });
   };
+
+  // TODO(Gionave): Use LocalStorage to store a new vehicle Check in
   const handleColorClick = (color) => {
     setCar({ ...car, color: color });
   };
@@ -185,9 +187,9 @@ function CheckIn() {
                             onClick={() => {
                               handleColorClick(color.name);
                             }}
-                            >
+                          >
                             <div
-                            style={{ backgroundColor: `${color.hex}` }}
+                              style={{ backgroundColor: `${color.hex}` }}
                               className={`w-8 h-8  rounded-full shadow-sm border ${
                                 car.color === color.name
                                   ? "border-[3px] border-blue-800"
