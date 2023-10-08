@@ -4,8 +4,6 @@ const CAR_MAKE_LIST_URL =
 const CAR_MODELS_LIST_URL =
   "https://private-anon-a2a3cc399e-carsapi1.apiary-mock.com/cars";
 
-let ALL_CAR_MODELS = [];
-
 const sortMakeList = (makeList) => {
   let sortedMakes = [];
   makeList.map((make) => {

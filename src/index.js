@@ -4,12 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { DisplayPageContextProvider } from "./context/DisplayPageContext";
+import { CarContextProvider } from "./context/CarContext";
+import { HelperContextProvider } from "./context/HelperContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <DisplayPageContextProvider>
-      <App />
+      <CarContextProvider>
+        <HelperContextProvider>
+          <App />
+        </HelperContextProvider>
+      </CarContextProvider>
     </DisplayPageContextProvider>
   </React.StrictMode>
 );

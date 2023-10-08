@@ -14,9 +14,9 @@ function Home() {
       <ChangeScreenButtons />
       <DateTimeLabel />
       {displayPage === "Check in" ? (
-        <CarContextProvider>
+        
           <CheckIn />
-        </CarContextProvider>
+        
       ) : (
         <CheckOut />
       )}

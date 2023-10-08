@@ -52,17 +52,11 @@ function CheckIn() {
 
   const handleButtonClick = () => {
     setErrorChecking({
-      plate: false,
-      make: false,
-      model: false,
-      color: false,
+      plate: car.plate.length === 0,
+      make: car.make.length === 0,
+      model: car.model.length === 0,
+      color: car.color.length === 0,
     });
-
-    setErrorChecking({ ...errorChecking, plate: car.plate === "" });
-    setErrorChecking({ ...errorChecking, make: car.make === "" });
-    setErrorChecking({ ...errorChecking, model: car.model === "" });
-    setErrorChecking({ ...errorChecking, color: car.color === "" });
-    console.log(errorChecking)
   };
 
   return (
@@ -181,6 +175,7 @@ function CheckIn() {
                     <div className="w-28">Color</div>
                     <div className="w-full  grid grid-cols-5 grid-rows-2 gap-2">
                       {carColorList.map((color) => {
+                        console.log(color);
                         return (
                           <div
                             className={`rounded-sm flex flex-col items-center transition-all hover:cursor-pointer hover:scale-105 ${
@@ -190,11 +185,10 @@ function CheckIn() {
                             onClick={() => {
                               handleColorClick(color.name);
                             }}
-                          >
+                            >
                             <div
-                              className={`w-8 h-8  rounded-full bg-[#${
-                                color.hex
-                              }] shadow-sm border ${
+                            style={{ backgroundColor: `${color.hex}` }}
+                              className={`w-8 h-8  rounded-full shadow-sm border ${
                                 car.color === color.name
                                   ? "border-[3px] border-blue-800"
                                   : ""
