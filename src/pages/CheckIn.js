@@ -106,7 +106,7 @@ function CheckIn() {
                 <select
                   name=""
                   id=""
-                  className="w-full p-1 select-none"
+                  className="w-full p-1 select-none rounded-md border border-black hover:cursor-pointer"
                   onChange={(event) => handleChangeCarMakeSelection(event)}
                 >
                   <option value="">Select a car make</option>
@@ -177,7 +177,6 @@ function CheckIn() {
                     <div className="w-28">Color</div>
                     <div className="w-full  grid grid-cols-5 grid-rows-2 gap-2">
                       {carColorList.map((color) => {
-                        console.log(color);
                         return (
                           <div
                             className={`rounded-sm flex flex-col items-center transition-all hover:cursor-pointer hover:scale-105 ${

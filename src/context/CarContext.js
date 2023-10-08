@@ -24,6 +24,24 @@ export const CarContextProvider = (props) => {
 
   const allParkedCars = [
     {
+      plate: "BBB-1111",
+      make: "Gmc",
+      model: "Yukon",
+      color: "Green",
+      checkInTime: 1660043868,
+      checkOutTime: "",
+      amountPaid: "",
+    },
+    {
+      plate: "BBB-2222",
+      make: "Bmw",
+      model: "M7",
+      color: "Brown",
+      checkInTime: 1660085928,
+      checkOutTime: "",
+      amountPaid: "",
+    },
+    {
       plate: "AAA-1111",
       make: "Ford",
       model: "Fiesta",
@@ -69,24 +87,6 @@ export const CarContextProvider = (props) => {
       amountPaid: "",
     },
     {
-      plate: "BBB-1111",
-      make: "Gmc",
-      model: "Yukon",
-      color: "Green",
-      checkInTime: 1660043868,
-      checkOutTime: "",
-      amountPaid: "",
-    },
-    {
-      plate: "BBB-2222",
-      make: "Bmw",
-      model: "M7",
-      color: "Brown",
-      checkInTime: 1660085928,
-      checkOutTime: "",
-      amountPaid: "",
-    },
-    {
       plate: "CCC-3333",
       make: "Ford",
       model: "Fusion",
@@ -111,6 +111,27 @@ export const CarContextProvider = (props) => {
       color: "Blue",
       checkInTime: 1646296788,
       checkOutTime: 1646309268,
+      amountPaid: "",
+    },
+  ];
+
+  const currentlyParkedCars = [
+    {
+      plate: "BBB-1111",
+      make: "Gmc",
+      model: "Yukon",
+      color: "Green",
+      checkInTime: 1660043868,
+      checkOutTime: "",
+      amountPaid: "",
+    },
+    {
+      plate: "BBB-2222",
+      make: "Bmw",
+      model: "M7",
+      color: "Brown",
+      checkInTime: 1660085928,
+      checkOutTime: "",
       amountPaid: "",
     },
   ];
@@ -150,6 +171,7 @@ export const CarContextProvider = (props) => {
         carModelsFromMake,
         carColorList,
         allParkedCars,
+        currentlyParkedCars,
       }}
     >
       {props.children}
