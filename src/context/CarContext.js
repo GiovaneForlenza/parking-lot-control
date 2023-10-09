@@ -1,10 +1,16 @@
 import React, { useState, createContext } from "react";
 import { getListOfCarModels } from "../services/carService";
+import "react-toastify/dist/ReactToastify.css";
 
 export const CarContext = createContext();
 
 export const CarContextProvider = (props) => {
-  const [car, setCar] = useState({ plate: "", make: "", model: "", color: "" });
+  const [car, setCar] = useState({
+    plate: "a",
+    make: "a",
+    model: "a",
+    color: "Red",
+  });
   const [carMakers, setCarMakers] = useState([]);
   const [carModels, setCarModels] = useState([]);
   const [carModelsFromMake, setCarModelsFromMake] = useState([]);
@@ -22,7 +28,13 @@ export const CarContextProvider = (props) => {
     { name: "Yellow", hex: "#E5C330" },
   ];
 
-  const allParkedCars = [
+  /**
+   * When use CheckIn/Checkout add a new object to the array
+   */
+
+  // TODO(Gionave): Move the allParkedCars and currentlyParked cars to the TableContext, since it's related to the table, and not to the car itself
+  // TODO(Gionave): Switch from 'All parked cars', to 'Previously checked out cars', since it'll be easier to deal with shit that's to come
+  const [allParkedCars, setAllParkedCars] = useState([
     {
       plate: "BBB-1111",
       make: "Gmc",
@@ -113,9 +125,8 @@ export const CarContextProvider = (props) => {
       checkOutTime: 1646309268,
       amountPaid: "",
     },
-  ];
-
-  const currentlyParkedCars = [
+  ]);
+  const [currentlyParkedCars, setCurrentlyParkedCars] = useState([
     {
       plate: "BBB-1111",
       make: "Gmc",
@@ -134,7 +145,87 @@ export const CarContextProvider = (props) => {
       checkOutTime: "",
       amountPaid: "",
     },
-  ];
+  ]);
+
+  const checkInNewCar = () => {
+    const date = getCurrentTimeStamp();
+    setCurrentlyParkedCars([
+      ...currentlyParkedCars,
+      {
+        plate: car.plate,
+        make: car.make,
+        model: car.model,
+        color: car.color,
+        checkInTime: date,
+        checkOutTime: "",
+        amountPaid: "",
+      },
+    ]);
+    clearCarAttributes();
+  };
+  const addCheckedOutCarToArray = (car) => {
+    const date = getCurrentTimeStamp();
+    setAllParkedCars([
+      ...allParkedCars,
+      {
+        plate: car.plate,
+        make: car.make,
+        model: car.model,
+        color: car.color,
+        checkInTime: car.checkInDate,
+        checkOutTime: date,
+        amountPaid: "",
+      },
+    ]);
+  };
+  const checkOutParkedCar = (plate) => {
+    const car = isPlateParked(plate);
+    if (car) {
+      const updatedCarList = currentlyParkedCars.filter((parkedCar) => {
+        return parkedCar.plate !== car.plate;
+      });
+
+      setCurrentlyParkedCars(updatedCarList);
+      allParkedCars.map((parkedCar) => {
+        if (parkedCar.plate === car.plate) {
+          setAllParkedCars({ ...parkedCar, timeCheckOut: getCurrentTimeStamp });
+        }
+      });
+
+      // FIXME(Gionave): Add checked out car to the other table, with the current DT for price calculation
+      // addCheckedOutCarToArray(car);
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const clearCarAttributes = () => {
+    setCar({
+      plate: "",
+      make: "",
+      model: "",
+      color: "",
+      checkInTime: "",
+      checkOutTime: "",
+    });
+  };
+
+  const isPlateParked = (plate) => {
+    return currentlyParkedCars.find(
+      (car) => car.plate.toLowerCase() === plate.toLowerCase()
+    );
+  };
+
+  const getCurrentTimeStamp = () => {
+    return Math.floor(new Date().getTime() / 1000.0);
+  };
+
+  /**
+   * When use CheckIn add a new obj to the array
+   * When use CheckOut remove from the array and add CheckOutTime.
+   * Keep it in the AllParkedCars array
+   */
 
   const fetchAllCarModels = () => {
     getListOfCarModels().then((data) => {
@@ -172,6 +263,12 @@ export const CarContextProvider = (props) => {
         carColorList,
         allParkedCars,
         currentlyParkedCars,
+        checkInNewCar,
+        clearCarAttributes,
+        isPlateParked,
+        setCurrentlyParkedCars,
+        setAllParkedCars,
+        checkOutParkedCar,
       }}
     >
       {props.children}

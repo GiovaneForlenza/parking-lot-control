@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import { DisplayPageContextProvider } from "./context/DisplayPageContext";
 import { CarContextProvider } from "./context/CarContext";
 import { HelperContextProvider } from "./context/HelperContext";
+import { TablesContextProvider } from "./context/TablesContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <DisplayPageContextProvider>
-      <CarContextProvider>
-        <HelperContextProvider>
-          <App />
-        </HelperContextProvider>
-      </CarContextProvider>
+      <TablesContextProvider>
+        <CarContextProvider>
+          <HelperContextProvider>
+            <App />
+          </HelperContextProvider>
+        </CarContextProvider>
+      </TablesContextProvider>
     </DisplayPageContextProvider>
   </React.StrictMode>
 );

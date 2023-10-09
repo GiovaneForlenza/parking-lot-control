@@ -8,24 +8,28 @@ function AllCarsTd({ tdToShow, checkOutTime, checkInTime }) {
   switch (tdToShow) {
     case "checkOut":
       return (
-        <td className="px-6 py-4">
+        <td className="px-6 py-4" key={tdToShow}>
           {checkOutTime !== "" ? getFormattedTimeFromDT(checkOutTime) : null}
         </td>
       );
     case "time":
       if (checkOutTime !== "") {
         return (
-          <td className="px-6 py-4">
+          <td className="px-6 py-4" key={tdToShow}>
             {calculateTotalParkedTime(checkInTime, checkOutTime)} hours
           </td>
         );
       } else {
-        return <td className="px-6 py-4">Car is still parked</td>;
+        return (
+          <td className="px-6 py-4" key={tdToShow}>
+            Car is still parked
+          </td>
+        );
       }
     case "price":
       if (checkOutTime !== "")
         return (
-          <td className="px-6 py-4">
+          <td className="px-6 py-4" key={tdToShow}>
             <div className="p-1 box-border rounded-full text-center bg-[#DBF7E4] text-[#31A751] font-semibold">
               {getCalculatedPriceToPay(checkInTime, checkOutTime)}
             </div>

@@ -14,16 +14,34 @@ function DashboardTable({ shownTable }) {
   ];
   const tableHeaderAllCars = ["Check out time", "hours parked", "Amount paid"];
   const { allParkedCars, currentlyParkedCars } = useContext(CarContext);
+
+  // const renderSwitchTable = () => {
+  //   switch (shownTable) {
+  //     case "Parked cars":
+  //       currentlyParkedCars.map((car) => {
+  //         return <TableLines car={car} shownTable={shownTable} key={car.id} />;
+  //       });
+
+  //     case "All cars":
+  //       allParkedCars.map((car) => {
+  //         return <TableLines car={car} shownTable={shownTable} key={car.id} />;
+  //       });
+  //   }
+  // };
   return (
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 sortable">
+      <thead className="text-xs text-gray-700 uppercase  bg-gray-50 ">
         <tr>
           {tableHeaderParkedCars.map((item, id) => {
-            return <TableHeader header={item} key={id} />;
+            return (
+              <TableHeader header={item} key={id} tableName={"parkedCars"} />
+            );
           })}
           {shownTable === "All cars"
             ? tableHeaderAllCars.map((item, id) => {
-                return <TableHeader header={item} key={id} />;
+                return (
+                  <TableHeader header={item} key={id} tableName={"allCars"} />
+                );
               })
             : null}
         </tr>
@@ -32,12 +50,12 @@ function DashboardTable({ shownTable }) {
         {shownTable === "Parked cars"
           ? currentlyParkedCars.map((car) => {
               return (
-                <TableLines car={car} shownTable={shownTable} id={car.plate} />
+                <TableLines car={car} shownTable={shownTable} key={car.id} />
               );
             })
           : allParkedCars.map((car) => {
               return (
-                <TableLines car={car} shownTable={shownTable} id={car.plate} />
+                <TableLines car={car} shownTable={shownTable} key={car.id} />
               );
             })}
       </tbody>

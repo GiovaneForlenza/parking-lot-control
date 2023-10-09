@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 
-import getSortedCarMakeList, {
-  getListOfCarModels,
-} from "../services/carService";
+import getSortedCarMakeList from "../services/carService";
 
 import "../css/formLine.css";
 import { CarContext } from "../context/CarContext";
+import { ToastContainer, toast } from "react-toastify";
 
 function CheckIn() {
   const {
@@ -17,6 +16,10 @@ function CheckIn() {
     getListOfModelsFromMake,
     carModelsFromMake,
     carColorList,
+    currentlyParkedCars,
+    allParkedCars,
+    checkInNewCar,
+    clearCarAttributes,
   } = useContext(CarContext);
 
   const [errorChecking, setErrorChecking] = useState({
@@ -47,27 +50,58 @@ function CheckIn() {
     setCar({ ...car, model: model.target.value });
   };
 
-  // TODO(Gionave): Use LocalStorage to store a new vehicle Check in
   const handleColorClick = (color) => {
     setCar({ ...car, color: color });
   };
 
-  const handleButtonClick = () => {
+  // TODO(Gionave): Use LocalStorage to store a new vehicle Check in
+  const handleCarCheckIn = () => {
     setErrorChecking({
       plate: car.plate.length === 0,
       make: car.make.length === 0,
       model: car.model.length === 0,
       color: car.color.length === 0,
     });
+    if (
+      car.plate.length === 0 ||
+      car.make.length === 0 ||
+      car.model.length === 0 ||
+      car.color.length === 0
+    ) {
+      return;
+    }
+
+    checkInNewCar();
+    toast.success("The vehicle was checked in", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "colored",
+    });
+
+    document.getElementById("carPlateInput").value = "";
+    document.getElementById("selectCarMake").value = "";
   };
 
   return (
     <div>
+      <ToastContainer />
       {/* Content container */}
       <div className="w-full ">
         {/* Form container */}
         <div className=" px-20 mt-4">
-          <form action="" className="p-4 shadow ">
+          <form
+            action=""
+            className="p-4 shadow"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleCarCheckIn();
+            }}
+          >
             <div className="text-center text-sm font-mono">
               Check in a new car
             </div>
@@ -79,6 +113,7 @@ function CheckIn() {
                 <br />
                 <input
                   type="text"
+                  id="carPlateInput"
                   className="inputText px-1 border-2"
                   required
                   onChange={(event) => {
@@ -105,7 +140,7 @@ function CheckIn() {
                 </label>
                 <select
                   name=""
-                  id=""
+                  id="selectCarMake"
                   className="w-full p-1 select-none rounded-md border border-black hover:cursor-pointer"
                   onChange={(event) => handleChangeCarMakeSelection(event)}
                 >
@@ -218,7 +253,7 @@ function CheckIn() {
                   <button
                     type="button"
                     className=" px-4 h-10 bg-sky-200 rounded-md hover:bg-sky-300"
-                    onClick={handleButtonClick}
+                    onClick={handleCarCheckIn}
                   >
                     Check in Vehicle
                   </button>
