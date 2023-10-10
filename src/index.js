@@ -7,19 +7,22 @@ import { DisplayPageContextProvider } from "./context/DisplayPageContext";
 import { CarContextProvider } from "./context/CarContext";
 import { HelperContextProvider } from "./context/HelperContext";
 import { TablesContextProvider } from "./context/TablesContext";
+import { LocalStorageContextProvider } from "./context/LocalStorageContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DisplayPageContextProvider>
-      <TablesContextProvider>
-        <CarContextProvider>
-          <HelperContextProvider>
-            <App />
-          </HelperContextProvider>
-        </CarContextProvider>
-      </TablesContextProvider>
-    </DisplayPageContextProvider>
+    <LocalStorageContextProvider>
+      <DisplayPageContextProvider>
+        <TablesContextProvider>
+          <CarContextProvider>
+            <HelperContextProvider>
+              <App />
+            </HelperContextProvider>
+          </CarContextProvider>
+        </TablesContextProvider>
+      </DisplayPageContextProvider>
+    </LocalStorageContextProvider>
   </React.StrictMode>
 );
 

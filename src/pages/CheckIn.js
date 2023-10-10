@@ -56,6 +56,7 @@ function CheckIn() {
 
   // TODO(Gionave): Use LocalStorage to store a new vehicle Check in
   const handleCarCheckIn = () => {
+    console.log(localStorage.getItem('parkedCars'))
     setErrorChecking({
       plate: car.plate.length === 0,
       make: car.make.length === 0,
@@ -80,7 +81,7 @@ function CheckIn() {
       pauseOnHover: false,
       draggable: false,
       progress: undefined,
-      theme: "colored",
+      theme: "light",
     });
 
     // document.getElementById("carPlateInput").value = "";
