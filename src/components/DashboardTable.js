@@ -3,6 +3,10 @@ import TableHeader from "./TableHeader";
 import TableLines from "./TableLines";
 
 import { CarContext } from "../context/CarContext";
+import {
+  LOCAL_STORAGE_KEYS,
+  LocalStorageContext,
+} from "../context/LocalStorageContext";
 
 function DashboardTable({ shownTable }) {
   const tableHeaderParkedCars = [
@@ -14,6 +18,7 @@ function DashboardTable({ shownTable }) {
   ];
   const tableHeaderAllCars = ["Check out time", "hours parked", "Amount paid"];
   const { checkedOutCars, currentlyParkedCars } = useContext(CarContext);
+  const { getItemsFromTable } = useContext(LocalStorageContext);
 
   // const renderSwitchTable = () => {
   //   switch (shownTable) {
@@ -48,12 +53,12 @@ function DashboardTable({ shownTable }) {
       </thead>
       <tbody>
         {shownTable === "Parked cars"
-          ? currentlyParkedCars.map((car) => {
+          ? getItemsFromTable(LOCAL_STORAGE_KEYS.parkedCars).map((car) => {
               return (
                 <TableLines car={car} shownTable={shownTable} key={car.id} />
               );
             })
-          : checkedOutCars.map((car) => {
+          : getItemsFromTable(LOCAL_STORAGE_KEYS.checkedOutCars).map((car) => {
               return (
                 <TableLines car={car} shownTable={shownTable} key={car.id} />
               );

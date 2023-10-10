@@ -37,7 +37,6 @@ function CheckOut() {
     setPlate(event.target.value);
   };
 
-  // TODO(Gionave): After adding the Check in process, do a check out logic to add an exit DT to the record
   // TODO(Gionave): Add error handling and a modal to confirm action
   return (
     <div className="h-34 w-full">

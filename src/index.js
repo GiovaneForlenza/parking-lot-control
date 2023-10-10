@@ -13,15 +13,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <LocalStorageContextProvider>
-      <DisplayPageContextProvider>
-        <TablesContextProvider>
-          <CarContextProvider>
-            <HelperContextProvider>
+      <HelperContextProvider>
+        <DisplayPageContextProvider>
+          <TablesContextProvider>
+            <CarContextProvider>
               <App />
-            </HelperContextProvider>
-          </CarContextProvider>
-        </TablesContextProvider>
-      </DisplayPageContextProvider>
+            </CarContextProvider>
+          </TablesContextProvider>
+        </DisplayPageContextProvider>
+      </HelperContextProvider>
     </LocalStorageContextProvider>
   </React.StrictMode>
 );

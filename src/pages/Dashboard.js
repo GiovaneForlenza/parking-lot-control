@@ -8,7 +8,6 @@ import { TablesContext } from "../context/TablesContext";
 function Dashboard() {
   const { shownTable, setShownTable } = useContext(TablesContext);
 
-  // TODO(Gionave): For the checked out cars, calculate the price paid to put it on record
   // TODO(Gionave): Somehow implement a sorting system, to change the "default" item ID sorting
 
   return (

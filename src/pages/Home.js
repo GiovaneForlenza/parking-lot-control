@@ -5,19 +5,23 @@ import DateTimeLabel from "../components/DateTimeLabel";
 import CheckOut from "./CheckOut";
 import ChangeScreenButtons from "../components/ChangeScreenButtons";
 import { DisplayPageContext } from "../context/DisplayPageContext";
-import { LocalStorageContext } from "../context/LocalStorageContext";
+import {
+  LOCAL_STORAGE_KEYS,
+  LocalStorageContext,
+} from "../context/LocalStorageContext";
 import { TablesContext } from "../context/TablesContext";
 
 function Home() {
   const { displayPage } = useContext(DisplayPageContext);
-  const { createInitialTables } = useContext(LocalStorageContext);
+  const { createInitialTables, getItemsFromTable } =
+    useContext(LocalStorageContext);
   const { checkedOutCars, currentlyParkedCars } = useContext(TablesContext);
 
   useEffect(() => {
-    if (localStorage.getItem("parkedCars") === null) {
+    if (!localStorage.getItem(LOCAL_STORAGE_KEYS.parkedCars)) {
       createInitialTables(currentlyParkedCars, checkedOutCars);
     } else {
-      console.log("tables created");
+      // console.log("tables already exist");
     }
   }, []);
 

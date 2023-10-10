@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext } from "react";
 import { getListOfCarModels } from "../services/carService";
 import "react-toastify/dist/ReactToastify.css";
 import { TablesContext } from "./TablesContext";
+import { LOCAL_STORAGE_KEYS, LocalStorageContext } from "./LocalStorageContext";
 
 export const CarContext = createContext();
 
@@ -12,14 +13,13 @@ export const CarContextProvider = (props) => {
     checkedOutCars,
     setCheckedOutCars,
   } = useContext(TablesContext);
+  const { getItemsFromTable, updateTable } = useContext(LocalStorageContext);
 
   const [car, setCar] = useState({
-    plate: "a",
-    make: "a",
-    model: "a",
-    color: "Red",
-    checkInTime: 0,
-    checkOutTime: 0,
+    plate: "",
+    make: "",
+    model: "",
+    color: "",
   });
   const [carMakers, setCarMakers] = useState([]);
   const [carModels, setCarModels] = useState([]);
@@ -41,56 +41,42 @@ export const CarContextProvider = (props) => {
   /**
    * When use CheckIn/Checkout add a new object to the array
    */
-
-  // TODO(Gionave): Move the checkedOutCars and currentlyParked cars to the TableContext, since it's related to the table, and not to the car itself
-  // TODO(Gionave): Switch from 'All parked cars', to 'Previously checked out cars', since it'll be easier to deal with shit that's to come
-
   const checkInNewCar = () => {
-    // const date = getCurrentTimeStamp();
-    // setCar({ ...car, checkInTime: date });
-    // setCurrentlyParkedCars([
-    //   ...currentlyParkedCars,
-    //   {
-    //     plate: car.plate,
-    //     make: car.make,
-    //     model: car.model,
-    //     color: car.color,
-    //     checkInTime: car.checkInTime,
-    //   },
-    // ]);
-    // clearCarAttributes();
+    if (!isPlateParked(car.plate)) {
+      const parkedCarsList = getItemsFromTable(LOCAL_STORAGE_KEYS.parkedCars);
+      const date = getCurrentTimeStamp();
+      const carToAdd = { ...car, checkInTime: date - 5000 };
+      parkedCarsList.unshift(carToAdd);
+      updateTable(LOCAL_STORAGE_KEYS.parkedCars, parkedCarsList);
+      clearCarAttributes();
+      return true;
+    }
+    return false;
   };
 
   const addCheckedOutCarToArray = (car) => {
-    // const date = getCurrentTimeStamp();
-    // setCar({ ...car, checkOutTime: date });
-    // setCheckedOutCars([...checkedOutCars, { car }]);
-    // console.log(car);
-    // console.log(checkedOutCars);
+    const checkedOutCarsList = getItemsFromTable(
+      LOCAL_STORAGE_KEYS.checkedOutCars
+    );
+    car.checkOutTime = getCurrentTimeStamp();
+    checkedOutCarsList.unshift(car);
+    updateTable(LOCAL_STORAGE_KEYS.checkedOutCars, checkedOutCarsList);
   };
 
   // FIXME(Gionave): FIX ADD CHECKED OUT CAR TO ARRAY
   const checkOutParkedCar = (plate) => {
-    // const car = isPlateParked(plate);
-    // if (car) {
-    //   const updatedCarList = currentlyParkedCars.filter((parkedCar) => {
-    //     return parkedCar.plate !== car.plate;
-    //   });
-    //   setCurrentlyParkedCars(updatedCarList);
-    //   checkedOutCars.map((parkedCar) => {
-    //     if (parkedCar.plate === car.plate) {
-    //       setCheckedOutCars({
-    //         ...parkedCar,
-    //         timeCheckOut: getCurrentTimeStamp,
-    //       });
-    //     }
-    //   });
-    //   // FIXME(Gionave): Add checked out car to the other table, with the current DT for price calculation
-    //   addCheckedOutCarToArray(car);
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    const car = isPlateParked(plate);
+    if (car) {
+      const updatedCarList = getItemsFromTable(
+        LOCAL_STORAGE_KEYS.parkedCars
+      ).filter((parkedCar) => {
+        return parkedCar.plate !== car.plate;
+      });
+      updateTable(LOCAL_STORAGE_KEYS.parkedCars, updatedCarList);
+      addCheckedOutCarToArray(car);
+      return true;
+    }
+    return false;
   };
 
   const clearCarAttributes = () => {
@@ -105,7 +91,7 @@ export const CarContextProvider = (props) => {
   };
 
   const isPlateParked = (plate) => {
-    return currentlyParkedCars.find(
+    return getItemsFromTable(LOCAL_STORAGE_KEYS.parkedCars).find(
       (car) => car.plate.toLowerCase() === plate.toLowerCase()
     );
   };

@@ -10,14 +10,17 @@ const calculateTotalParkedTime = (inTime, outTime) => {
   return Math.round(timeParked / 60 / 60);
 };
 export const HelperContextProvider = (props) => {
-  const {
-    checkedOutCars,
-    setCheckedOutCars,
-    currentlyParkedCars,
-    setCurrentlyParkedCars,
-  } = useContext(CarContext);
 
-  const { shownTable } = useContext(TablesContext);
+  const toastAtt = {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+  };
 
   const HOURLY_PRICE = 4;
 
@@ -35,20 +38,13 @@ export const HelperContextProvider = (props) => {
     }
   };
 
-  const sortTableByAttribute = (table, attribute) => {
-    if (shownTable === "Parked cars") {
-      console.log(currentlyParkedCars);
-    } else {
-      console.log(checkedOutCars);
-    }
-  };
-
   return (
     <HelperContext.Provider
       value={{
         getFormattedTimeFromDT,
         getCalculatedPriceToPay,
-        sortTableByAttribute,
+        // sortTableByAttribute,
+        toastAtt,
       }}
     >
       {props.children}

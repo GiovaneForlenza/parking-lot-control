@@ -16,7 +16,10 @@ function AllCarsTd({ tdToShow, checkOutTime, checkInTime }) {
       if (checkOutTime !== "") {
         return (
           <td className="px-6 py-4" key={tdToShow}>
-            {calculateTotalParkedTime(checkInTime, checkOutTime)} hours
+            {calculateTotalParkedTime(checkInTime, checkOutTime)}{" "}
+            {calculateTotalParkedTime(checkInTime, checkOutTime) > 1
+              ? "hours"
+              : "hour"}
           </td>
         );
       } else {

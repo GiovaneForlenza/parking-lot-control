@@ -7,7 +7,6 @@ import AllCarsTd from "./AllCarsTd";
 function TableLines({ car, shownTable }) {
   const { carColorList } = useContext(CarContext);
   const { getFormattedTimeFromDT } = useContext(HelperContext);
-  console.log(car);
   return (
     <tr
       className="bg-white border-b hover:bg-gray-50 text-gray-900 "

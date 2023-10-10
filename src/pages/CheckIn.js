@@ -4,6 +4,7 @@ import getSortedCarMakeList from "../services/carService";
 
 import "../css/formLine.css";
 import { CarContext } from "../context/CarContext";
+import { HelperContext } from "../context/HelperContext";
 import { ToastContainer, toast } from "react-toastify";
 
 function CheckIn() {
@@ -16,11 +17,11 @@ function CheckIn() {
     getListOfModelsFromMake,
     carModelsFromMake,
     carColorList,
-    currentlyParkedCars,
-    checkedOutCars,
     checkInNewCar,
     clearCarAttributes,
   } = useContext(CarContext);
+
+  const { toastAtt } = useContext(HelperContext);
 
   const [errorChecking, setErrorChecking] = useState({
     plate: false,
@@ -54,9 +55,8 @@ function CheckIn() {
     setCar({ ...car, color: color });
   };
 
-  // TODO(Gionave): Use LocalStorage to store a new vehicle Check in
   const handleCarCheckIn = () => {
-    console.log(localStorage.getItem('parkedCars'))
+    // TODO(Gionave): Check if the plate is valid, based on a format
     setErrorChecking({
       plate: car.plate.length === 0,
       make: car.make.length === 0,
@@ -72,21 +72,19 @@ function CheckIn() {
       return;
     }
 
-    checkInNewCar();
-    toast.success("The vehicle was checked in", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-      progress: undefined,
-      theme: "light",
-    });
+    const success = checkInNewCar();
 
-    // document.getElementById("carPlateInput").value = "";
-    // document.getElementById("selectCarMake").value = "";
+    if (success) {
+      toast.success("The vehicle was checked in", toastAtt);
+    } else {
+      toast.error("The vehicle is already checked in", toastAtt);
+    }
+
+    document.getElementById("carPlateInput").value = "";
+    document.getElementById("selectCarMake").value = "";
   };
+
+  // TODO(Gionave): Create a 'Previously parked' table, and if that plate is put automatically add the car's info
 
   return (
     <div>
