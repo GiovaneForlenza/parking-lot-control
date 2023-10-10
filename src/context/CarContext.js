@@ -10,6 +10,8 @@ export const CarContextProvider = (props) => {
     make: "a",
     model: "a",
     color: "Red",
+    checkInTime: 0,
+    checkOutTime: 0,
   });
   const [carMakers, setCarMakers] = useState([]);
   const [carModels, setCarModels] = useState([]);
@@ -35,24 +37,6 @@ export const CarContextProvider = (props) => {
   // TODO(Gionave): Move the checkedOutCars and currentlyParked cars to the TableContext, since it's related to the table, and not to the car itself
   // TODO(Gionave): Switch from 'All parked cars', to 'Previously checked out cars', since it'll be easier to deal with shit that's to come
   const [checkedOutCars, setCheckedOutCars] = useState([
-    {
-      plate: "BBB-1111",
-      make: "Gmc",
-      model: "Yukon",
-      color: "Green",
-      checkInTime: 1660043868,
-      checkOutTime: "",
-      amountPaid: "",
-    },
-    {
-      plate: "BBB-2222",
-      make: "Bmw",
-      model: "M7",
-      color: "Brown",
-      checkInTime: 1660085928,
-      checkOutTime: "",
-      amountPaid: "",
-    },
     {
       plate: "AAA-1111",
       make: "Ford",
@@ -149,6 +133,7 @@ export const CarContextProvider = (props) => {
 
   const checkInNewCar = () => {
     const date = getCurrentTimeStamp();
+    setCar({ ...car, checkInTime: date });
     setCurrentlyParkedCars([
       ...currentlyParkedCars,
       {
@@ -156,28 +141,21 @@ export const CarContextProvider = (props) => {
         make: car.make,
         model: car.model,
         color: car.color,
-        checkInTime: date,
-        checkOutTime: "",
-        amountPaid: "",
+        checkInTime: car.checkInTime,
       },
     ]);
-    clearCarAttributes();
+    // clearCarAttributes();
   };
+
   const addCheckedOutCarToArray = (car) => {
     const date = getCurrentTimeStamp();
-    setCheckedOutCars([
-      ...checkedOutCars,
-      {
-        plate: car.plate,
-        make: car.make,
-        model: car.model,
-        color: car.color,
-        checkInTime: car.checkInDate,
-        checkOutTime: date,
-        amountPaid: "",
-      },
-    ]);
+    setCar({ ...car, checkOutTime: date });
+    setCheckedOutCars([...checkedOutCars, { car }]);
+    console.log(car);
+    console.log(checkedOutCars);
   };
+
+  // FIXME(Gionave): FIX ADD CHECKED OUT CAR TO ARRAY
   const checkOutParkedCar = (plate) => {
     const car = isPlateParked(plate);
     if (car) {
@@ -188,12 +166,15 @@ export const CarContextProvider = (props) => {
       setCurrentlyParkedCars(updatedCarList);
       checkedOutCars.map((parkedCar) => {
         if (parkedCar.plate === car.plate) {
-          setCheckedOutCars({ ...parkedCar, timeCheckOut: getCurrentTimeStamp });
+          setCheckedOutCars({
+            ...parkedCar,
+            timeCheckOut: getCurrentTimeStamp,
+          });
         }
       });
 
       // FIXME(Gionave): Add checked out car to the other table, with the current DT for price calculation
-      // addCheckedOutCarToArray(car);
+      addCheckedOutCarToArray(car);
       return true;
     } else {
       return false;

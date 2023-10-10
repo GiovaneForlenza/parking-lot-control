@@ -83,8 +83,8 @@ function CheckIn() {
       theme: "colored",
     });
 
-    document.getElementById("carPlateInput").value = "";
-    document.getElementById("selectCarMake").value = "";
+    // document.getElementById("carPlateInput").value = "";
+    // document.getElementById("selectCarMake").value = "";
   };
 
   return (
