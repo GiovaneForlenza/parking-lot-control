@@ -13,7 +13,7 @@ function DashboardTable({ shownTable }) {
     "Check in time",
   ];
   const tableHeaderAllCars = ["Check out time", "hours parked", "Amount paid"];
-  const { allParkedCars, currentlyParkedCars } = useContext(CarContext);
+  const { checkedOutCars, currentlyParkedCars } = useContext(CarContext);
 
   // const renderSwitchTable = () => {
   //   switch (shownTable) {
@@ -23,7 +23,7 @@ function DashboardTable({ shownTable }) {
   //       });
 
   //     case "All cars":
-  //       allParkedCars.map((car) => {
+  //       checkedOutCars.map((car) => {
   //         return <TableLines car={car} shownTable={shownTable} key={car.id} />;
   //       });
   //   }
@@ -37,7 +37,7 @@ function DashboardTable({ shownTable }) {
               <TableHeader header={item} key={id} tableName={"parkedCars"} />
             );
           })}
-          {shownTable === "All cars"
+          {shownTable === "Checked out cars"
             ? tableHeaderAllCars.map((item, id) => {
                 return (
                   <TableHeader header={item} key={id} tableName={"allCars"} />
@@ -53,7 +53,7 @@ function DashboardTable({ shownTable }) {
                 <TableLines car={car} shownTable={shownTable} key={car.id} />
               );
             })
-          : allParkedCars.map((car) => {
+          : checkedOutCars.map((car) => {
               return (
                 <TableLines car={car} shownTable={shownTable} key={car.id} />
               );

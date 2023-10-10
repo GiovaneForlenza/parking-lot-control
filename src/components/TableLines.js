@@ -35,7 +35,7 @@ function TableLines({ car, shownTable }) {
         })}
       </td>
       <td className="px-6 py-4">{getFormattedTimeFromDT(car.checkInTime)}</td>
-      {shownTable === "All cars"
+      {shownTable === "Checked out cars"
         ? [
             <AllCarsTd tdToShow={"checkOut"} checkOutTime={car.checkOutTime} />,
             <AllCarsTd

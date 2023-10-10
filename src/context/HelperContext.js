@@ -11,8 +11,8 @@ const calculateTotalParkedTime = (inTime, outTime) => {
 };
 export const HelperContextProvider = (props) => {
   const {
-    allParkedCars,
-    setAllParkedCars,
+    checkedOutCars,
+    setCheckedOutCars,
     currentlyParkedCars,
     setCurrentlyParkedCars,
   } = useContext(CarContext);
@@ -39,7 +39,7 @@ export const HelperContextProvider = (props) => {
     if (shownTable === "Parked cars") {
       console.log(currentlyParkedCars);
     } else {
-      console.log(allParkedCars);
+      console.log(checkedOutCars);
     }
   };
 

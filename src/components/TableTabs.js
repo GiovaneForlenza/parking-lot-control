@@ -1,7 +1,7 @@
 import React from "react";
 
-function TableTabs({  setShownTable, shownTable }) {
-  const tablesToShow = ["Parked cars", "All cars"];
+function TableTabs({ setShownTable, shownTable }) {
+  const tablesToShow = ["Parked cars", "Checked out cars"];
   return (
     <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 ">
       {tablesToShow.map((table) => {

@@ -17,7 +17,7 @@ function CheckIn() {
     carModelsFromMake,
     carColorList,
     currentlyParkedCars,
-    allParkedCars,
+    checkedOutCars,
     checkInNewCar,
     clearCarAttributes,
   } = useContext(CarContext);

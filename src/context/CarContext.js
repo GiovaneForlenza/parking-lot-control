@@ -32,9 +32,9 @@ export const CarContextProvider = (props) => {
    * When use CheckIn/Checkout add a new object to the array
    */
 
-  // TODO(Gionave): Move the allParkedCars and currentlyParked cars to the TableContext, since it's related to the table, and not to the car itself
+  // TODO(Gionave): Move the checkedOutCars and currentlyParked cars to the TableContext, since it's related to the table, and not to the car itself
   // TODO(Gionave): Switch from 'All parked cars', to 'Previously checked out cars', since it'll be easier to deal with shit that's to come
-  const [allParkedCars, setAllParkedCars] = useState([
+  const [checkedOutCars, setCheckedOutCars] = useState([
     {
       plate: "BBB-1111",
       make: "Gmc",
@@ -165,8 +165,8 @@ export const CarContextProvider = (props) => {
   };
   const addCheckedOutCarToArray = (car) => {
     const date = getCurrentTimeStamp();
-    setAllParkedCars([
-      ...allParkedCars,
+    setCheckedOutCars([
+      ...checkedOutCars,
       {
         plate: car.plate,
         make: car.make,
@@ -186,9 +186,9 @@ export const CarContextProvider = (props) => {
       });
 
       setCurrentlyParkedCars(updatedCarList);
-      allParkedCars.map((parkedCar) => {
+      checkedOutCars.map((parkedCar) => {
         if (parkedCar.plate === car.plate) {
-          setAllParkedCars({ ...parkedCar, timeCheckOut: getCurrentTimeStamp });
+          setCheckedOutCars({ ...parkedCar, timeCheckOut: getCurrentTimeStamp });
         }
       });
 
@@ -224,7 +224,7 @@ export const CarContextProvider = (props) => {
   /**
    * When use CheckIn add a new obj to the array
    * When use CheckOut remove from the array and add CheckOutTime.
-   * Keep it in the AllParkedCars array
+   * Keep it in the checkedOutCars array
    */
 
   const fetchAllCarModels = () => {
@@ -261,13 +261,13 @@ export const CarContextProvider = (props) => {
         getListOfModelsFromMake,
         carModelsFromMake,
         carColorList,
-        allParkedCars,
+        checkedOutCars,
         currentlyParkedCars,
         checkInNewCar,
         clearCarAttributes,
         isPlateParked,
         setCurrentlyParkedCars,
-        setAllParkedCars,
+        setCheckedOutCars,
         checkOutParkedCar,
       }}
     >
