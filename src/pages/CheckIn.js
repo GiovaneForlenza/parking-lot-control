@@ -205,15 +205,15 @@ function CheckIn() {
                   </div>
                 </div>
                 {/* Color */}
-                <div className="">
+                <div className="mt-8 sm:m-0">
                   {/* COLOR SELECTION */}
-                  <div className="mt-8 flex pb-2 justify-center items-center">
-                    <div className="w-28">Color</div>
-                    <div className="w-full  grid grid-cols-5 grid-rows-2 gap-2">
+                  <div className=" flex pb-2 flex-col sm:justify-center sm:items-start sm:flex-row sm:mt-8">
+                    <div className="mb-4 sm:w-28 sm:mb-0">Color</div>
+                    <div className="w-full grid grid-cols-5 grid-rows-2 gap-2">
                       {carColorList.map((color) => {
                         return (
                           <div
-                            className={`rounded-sm flex flex-col items-center transition-all hover:cursor-pointer hover:scale-105 ${
+                            className={`rounded-sm flex flex-col items-center transition-all hover:cursor-pointer hover:scale-105 p-1${
                               car.color === color.name ? "shadow-lg" : ""
                             }`}
                             key={color.hex}
@@ -223,9 +223,9 @@ function CheckIn() {
                           >
                             <div
                               style={{ backgroundColor: `${color.hex}` }}
-                              className={`w-8 h-8  rounded-full shadow-sm border ${
+                              className={`w-8 h-8  rounded-full shadow-sm border  ${
                                 car.color === color.name
-                                  ? "border-[3px] border-blue-800"
+                                  ? "border-[3px] border-blue-800 shadow-sm"
                                   : ""
                               }`}
                             ></div>
