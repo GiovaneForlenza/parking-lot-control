@@ -39,9 +39,9 @@ function CheckOut() {
 
   // TODO(Gionave): Add error handling and a modal to confirm action
   return (
-    <div className="h-34 w-full">
+    <div className="h-34 w-full ">
       <ToastContainer />
-      <div className="px-20 mt-4">
+      <div className="p-2 mt-4 sm:px-20">
         <form
           action=""
           className="p-4 shadow"

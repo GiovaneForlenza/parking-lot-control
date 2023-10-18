@@ -7,7 +7,7 @@ function App() {
   const { displayPage } = useContext(DisplayPageContext);
   return (
     // Main container
-    <div className="border h-screen flex items-center justify-center bg-sky-50">
+    <div className="p-4 h-screen flex items-center justify-center bg-sky-50">
       {/* Content container */}
       <div className="">
         {displayPage === "Check in" || displayPage === "Check out" ? (

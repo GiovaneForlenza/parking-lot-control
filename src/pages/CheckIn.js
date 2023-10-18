@@ -92,7 +92,7 @@ function CheckIn() {
       {/* Content container */}
       <div className="w-full ">
         {/* Form container */}
-        <div className=" px-20 mt-4">
+        <div className="p-2 mt-4 sm:px-20">
           <form
             action=""
             className="p-4 shadow"

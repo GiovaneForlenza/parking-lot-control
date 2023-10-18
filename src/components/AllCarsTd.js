@@ -33,7 +33,7 @@ function AllCarsTd({ tdToShow, checkOutTime, checkInTime }) {
       if (checkOutTime !== "")
         return (
           <td className="px-6 py-4" key={tdToShow}>
-            <div className="p-1 box-border rounded-full text-center bg-[#DBF7E4] text-[#31A751] font-semibold">
+            <div className="p-1 box-border rounded-md text-center bg-[#F0FDF4] text-[#15803D] font-semibold">
               {getCalculatedPriceToPay(checkInTime, checkOutTime)}
             </div>
           </td>

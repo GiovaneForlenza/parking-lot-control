@@ -20,13 +20,11 @@ function Home() {
   useEffect(() => {
     if (!localStorage.getItem(LOCAL_STORAGE_KEYS.parkedCars)) {
       createInitialTables(currentlyParkedCars, checkedOutCars);
-    } else {
-      // console.log("tables already exist");
     }
   }, []);
 
   return (
-    <div className="bg-white w-[600px]  rounded-md flex flex-col  shadow-md ring-1 ring-slate-100 py-6 px-6 ">
+    <div className="bg-white max-w-2xl min-w-xl rounded-md flex flex-col  shadow-md ring-1 ring-slate-100 sm:p-6">
       <ChangeScreenButtons />
       <DateTimeLabel />
       {displayPage === "Check in" ? <CheckIn /> : <CheckOut />}
